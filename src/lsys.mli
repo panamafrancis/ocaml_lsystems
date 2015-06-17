@@ -26,8 +26,6 @@ type lsystem = {
  *
  *)
 
-(*val empty : lsystem*)
-
 val rewrite : lsystem -> n:int -> lsystem 
 (*
  *  Generate the state of the L-System after n iterations
@@ -43,7 +41,9 @@ val insert_tree : ltree -> ltree -> bytes -> ltree
  * insert the second tree after the node with value x
  *)
 
-val to_string : ltree -> string
+val ltree_to_string : ltree -> string
+
+val lsys_to_string : lsystem -> string
 
 
 

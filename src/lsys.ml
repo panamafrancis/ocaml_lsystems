@@ -31,6 +31,7 @@ let rec insert_tree l1 l2 x =
     | Operand {value=v; next=t} -> 
             Operand{value=v; next= insert_tree t l2 x}
 
+(* TODO expose? *)
 let get_rule lrules r = 
     try
         List.Assoc.find_exn lrules r
@@ -38,6 +39,7 @@ let get_rule lrules r =
         (* If the operand is dead (like dead dna) then don't worry*)
         Not_found -> Empty
 
+(* TODO refactor out tree rewriting? *)
 let rewrite lsys ~n =
     let rec aux tree = 
         match tree with
@@ -61,7 +63,8 @@ let rewrite lsys ~n =
 
     in count lsys.init n 
 
-let to_string lsys =
+
+let ltree_to_string ltree =
     let rec aux tree = 
         match tree with
         | Empty -> ""
@@ -69,5 +72,16 @@ let to_string lsys =
                 "[" ^ (aux l) ^ "]" ^ (aux r) 
         | Operand {value=v; next=t} ->
                 v ^ (aux t)
-    in aux lsys
+    in aux ltree 
 
+let lsys_to_string lsys = 
+    let rec rules_to_string rule =
+        match rule with
+        | [] -> ""
+        | (axiom, tree)::t -> "{axiom = " ^ axiom ^ 
+                              "; rule = " ^
+                              (ltree_to_string tree) ^ 
+                              "};\n" ^ (rules_to_string t)
+
+    in let all_rules = rules_to_string lsys.rules 
+    in "{ rules = [" ^ all_rules ^ "]\n init = " ^ ltree_to_string lsys.init ^ "\n}"
