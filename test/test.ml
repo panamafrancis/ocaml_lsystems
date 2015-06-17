@@ -39,11 +39,28 @@ let test_insert_at_bad_node _ =
                             value="X"; next=Empty}}}} in
     assert_equal actual expected
 
+let test_append_tree _ = 
+    let actual = append_tree abc_tree x_tree in
+    let expected = Operand{ value="A"; next=Operand{
+                            value="B"; next=Operand{
+                            value="C"; next=Operand{
+                            value="X"; next=Empty}}}} in
+    assert_equal actual expected
+
+(* when appending onto an empty tree it should return the second*)
+let test_append_tree_on_empty _ = 
+    let actual = append_tree empty_tree x_tree in
+    assert_equal actual x_tree
+
 let suite = "LSystems tests" >::: 
-    ["test_equality" >:: test_equality;
+    [
+    "test_equality" >:: test_equality;
     "test_insert_tree" >:: test_insert_tree;
     "test_insert_on_empty" >:: test_insert_on_empty;
-    "test_insert_at_bad_node" >:: test_insert_at_bad_node]
+    "test_insert_at_bad_node" >:: test_insert_at_bad_node;
+    "test_append_tree" >:: test_append_tree;
+    "test_append_tree_on_empty" >:: test_append_tree_on_empty;
+    ]
 
 let _ =
     run_test_tt_main suite
