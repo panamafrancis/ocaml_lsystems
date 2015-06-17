@@ -1,0 +1,22 @@
+OASISFormat: 0.4
+Name:        ocaml_lsystems
+Version:     0.1
+Synopsis:    Lindenmayer systems and such
+Authors:     Stefan
+License:     MIT
+Plugins:     StdFiles (0.4), DevFiles (0.4)
+XStdFilesAUTHORS: false
+XStdFilesREADME:  false
+XStdFilesINSTALL: false
+BuildTools:  ocamlbuild, camlp4o
+
+Library lsystems
+  Path:       src
+  FindlibName: lsystems
+  Modules:    Lsys
+
+  BuildDepends: core,
+                pa_ounit,
+                pa_ounit.syntax,
+                threads
+  

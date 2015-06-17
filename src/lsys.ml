@@ -71,3 +71,7 @@ let to_string lsys =
                 v ^ (aux t)
     in aux lsys
 
+TEST_MODULE = struct
+  TEST = (2 = 2)
+end
+
