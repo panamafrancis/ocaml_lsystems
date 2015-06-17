@@ -14,9 +14,20 @@ Library lsystems
   Path:       src
   FindlibName: lsystems
   Modules:    Lsys
-
   BuildDepends: core,
                 pa_ounit,
                 pa_ounit.syntax,
                 threads
+
+Executable test
+  Path: test
+  MainIs: test.ml
+  Install: false
+  BuildDepends: oUnit (>= 2.0.0), lsystems
+
+Test main
+  Type: custom (0.3)
+  Command: $test 
+  WorkingDirectory: test
+  TestTools: test 
   
